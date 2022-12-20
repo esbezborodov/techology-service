@@ -1,0 +1,53 @@
+{% extends "base.html" %} 
+{% block title %}Home page{% endblock %} 
+{% block href %} 
+  {% if c_a != True and c_a != False %} 
+    <a class="me-3 py-2 text-dark text-decoration-n one" href="/login">Авторизация</a> 
+    <a class="me-3 py-2 text-dark text-decoration-none" href="/register">Регистрация</a> 
+  {% endif %} 
+    <a class="py-2 text-dark text-decoration-none" href="/">Товары <p> </p></a> 
+  {% if c_a == True %} 
+    <a style="margin-left: 16px;" class="me-3 py-2 text-dark text-decoration-n one" href="/add">Создание товара</a> 
+  {% endif %} 
+  {% if  c_a == True or c_a == False%} 
+    <a class="py-2 text-dark text-decoration-none" href="/logout">Выйти</a> 
+  {% endif %} 
+{% endblock %} 
+{% block content %} 
+<form class="form-inline" method="POST">
+  <div class="form-group">
+    <div class="input-group">
+        <span class="input-group-addon"></span>
+            <select name="comp_select" class="selectpicker form-control">
+              <option value="">По умолчанию</option>
+              <option value="price">По цене</option>
+              <option value="type1">По типу продукции(печатающие головы)</option>
+              <option value="type2">По типу продукции(картриджи)</option>
+            </select>
+    </div>
+    <button type="submit" class="btn btn-default">Подтвердите фильтр</button>
+  </div>
+</form>
+{% for i in products %} 
+      <div class="card" style="width: 18rem;"> 
+        <img class="card-img-top" src="/static/{{i.photo}}" alt="Card image cap"> 
+        <div class="card-body"> 
+          <h5 class="card-title">{{i.name}}</h5> 
+        </div> 
+        <ul class="list-group list-group-flush"> 
+          <li class="list-group-item">Производитель: {{i.manufacturer}}</li> 
+          <li class="list-group-item">цена: {{i.price}}₽</li> 
+        </ul> 
+        <div class="card-body"> 
+          <a href="/{{i.id}}" class="btn btn-primary" class="card-link">Подробнее</a> 
+        </div> 
+        {% if c_a == True %} 
+          <div clas="flex-container" style="height:3rem;"> 
+            <a  href = "/delete/{{i.id}}/del" class="btn btn-warning" value="" >Удалить</a> 
+            <a href = "/add/{{i.id}}/del" class="btn btn-warning" value="">Редактирование</a> 
+          </div> 
+        {% endif %} 
+       </div> 
+{%endfor%} 
+{% endblock %}
+      </body>

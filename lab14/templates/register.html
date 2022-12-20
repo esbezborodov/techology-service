@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Register page{% endblock %}
+{% block content %}
+<div class="container">
+    <h2>Registration</h2>
+    {% for field, errors in form.errors.items() %}
+    {{ ', '.join(errors) }}
+    {% endfor %}
+    <form class="form-horizontal" method="POST" action="">
+        <div class="form-group">
+            {{ form.csrf_token() }}
+            {{ form.login.label }}
+            {{ form.login(class="form-control") }}
+            {% for error in form.login.errors %}
+                {{error}}
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            {{ form.csrf_token() }}
+            {{ form.email.label }}
+            {{ form.email(class="form-control") }}
+            {% for error in form.email.errors %}
+                {{error}}
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            {{ form.csrf_token() }}
+            {{ form.password.label }}
+            {{ form.password(class="form-control") }}
+            {% for error in form.password.errors %}
+                {{error}}
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            {{ form.csrf_token() }}
+            {{ form.password22.label }}
+            {{ form.password22(class="form-control") }}
+            {% for error in form.password22.errors %}
+                {{error}}
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            {{ form.csrf_token() }}
+            {{ form.submit(class="btn btn-primary")}}
+        </div>
+    </form>
+</div>
+{% endblock %}

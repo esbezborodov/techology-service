@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Product page{% endblock %}
+{% block content %}
+
+<div class="container" style="height: 100px; width: 200px; margin-right: 500px"; class="col-1" >
+    <img src="/static/{{product.photo}}" alt="Card image cap" style="height: 300px; width: 550px;">
+</div>
+<div class="col-5">
+    <div class="container"; classs="col-2">
+    <div class="container lg">
+    <h1>{{product.name}}</h1>
+    <p>{{product.type}}</p>
+    <p>{{product.description}}</p>
+    <p>производитель: {{product.manufacturer}}</p>
+    <p>цена за штуку: {{product.price}}₽</p>
+</body>
+{% if c_a == True or c_a == False %} 
+    <div class="container"> 
+        <h2>Добавление комментария</h2>
+        {% for field, errors in form.errors.items() %}
+        {{ ', '.join(errors) }}
+        {% endfor %}
+        <form class="form-horizontal" method="POST" action="" enctype="multipart/form-data">
+            <div class="form-group">
+                {{ form.csrf_token() }}
+                {{ form.like.label }}
+                {{ form.like(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.csrf_token() }}
+                {{ form.comment.label }}
+                {{ form.comment(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.csrf_token() }}
+                {{ form.submit(class="btn btn-primary")}}
+            </div>
+        </form>
+    </div>
+    {% endif %}
+    <div>
+        {% for i in comments %}
+        <div class="card" style="width: 10rem;">
+            <div class="container">
+                <p>оценка: {{i.like}}/5</p>
+                <p>коммент: {{i.comment}}</p>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
